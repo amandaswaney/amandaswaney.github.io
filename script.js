@@ -1,45 +1,40 @@
-let minutes = 25;
-let seconds = 0;
-let isRunning = false;
-let intervalId;
+let timer;
+let time = 1500; // 25 minutes in seconds
+let isTimerRunning = false;
 
 function startTimer() {
-    if (!isRunning) {
-        isRunning = true;
-        intervalId = setInterval(updateTimer, 1000);
-    }
+  if (!isTimerRunning) {
+    isTimerRunning = true;
+    timer = setInterval(updateTimer, 1000);
+  }
 }
 
 function stopTimer() {
-    clearInterval(intervalId);
-    isRunning = false;
+  clearInterval(timer);
+  isTimerRunning = false;
 }
 
 function resetTimer() {
-    stopTimer();
-    minutes = 25;
-    seconds = 0;
-    updateTimeDisplay();
+  stopTimer();
+  time = 1500;
+  updateTimerDisplay();
 }
 
 function updateTimer() {
-    if (seconds === 0) {
-        if (minutes === 0) {
-            stopTimer();
-            // You can add a sound or any other action when the timer finishes
-            alert("Pomodoro session finished!");
-            return;
-        }
-        minutes--;
-        seconds = 59;
-    } else {
-        seconds--;
-    }
-    updateTimeDisplay();
+  time--;
+  if (time <= 0) {
+    stopTimer();
+    alert("Time's up!");
+    time = 1500; // Reset to 25 minutes
+  }
+  updateTimerDisplay();
 }
 
-function updateTimeDisplay() {
-    const formattedMinutes = minutes < 10 ? "0" + minutes : minutes;
-    const formattedSeconds = seconds < 10 ? "0" + seconds : seconds;
-    document.getElementById("time-display").innerText = `${formattedMinutes}:${formattedSeconds}`;
+function updateTimerDisplay() {
+  const minutes = Math.floor(time / 60);
+  const seconds = time % 60;
+  document.getElementById('timer').innerText = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
 }
+
+document.getElementById('start-btn').addEventListener('click', startTimer);
+document.getElementById('reset-btn').addEventListener('click', resetTimer);
