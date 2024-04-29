@@ -1,40 +1,46 @@
+// JavaScript for Pomodoro Timer
 let timer;
-let time = 1500; // 25 minutes in seconds
+let minutes = 25;
+let seconds = 0;
 let isTimerRunning = false;
 
 function startTimer() {
-  if (!isTimerRunning) {
-    isTimerRunning = true;
-    timer = setInterval(updateTimer, 1000);
-  }
-}
-
-function stopTimer() {
-  clearInterval(timer);
-  isTimerRunning = false;
-}
-
-function resetTimer() {
-  stopTimer();
-  time = 1500;
-  updateTimerDisplay();
+    if (!isTimerRunning) {
+        isTimerRunning = true;
+        timer = setInterval(updateTimer, 1000);
+    }
 }
 
 function updateTimer() {
-  time--;
-  if (time <= 0) {
-    stopTimer();
-    alert("Time's up!");
-    time = 1500; // Reset to 25 minutes
-  }
-  updateTimerDisplay();
+    if (seconds === 0) {
+        if (minutes === 0) {
+            clearInterval(timer);
+            isTimerRunning = false;
+            alert("Pomodoro session is over!");
+            return;
+        }
+        minutes--;
+        seconds = 59;
+    } else {
+        seconds--;
+    }
+
+    document.getElementById('minutes').innerText = formatTime(minutes);
+    document.getElementById('seconds').innerText = formatTime(seconds);
 }
 
-function updateTimerDisplay() {
-  const minutes = Math.floor(time / 60);
-  const seconds = time % 60;
-  document.getElementById('timer').innerText = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+function resetTimer() {
+    clearInterval(timer);
+    isTimerRunning = false;
+    minutes = 25;
+    seconds = 0;
+    document.getElementById('minutes').innerText = formatTime(minutes);
+    document.getElementById('seconds').innerText = formatTime(seconds);
 }
 
-document.getElementById('start-btn').addEventListener('click', startTimer);
-document.getElementById('reset-btn').addEventListener('click', resetTimer);
+function formatTime(time) {
+    return time < 10 ? `0${time}` : time;
+}
+
+document.getElementById('startTimer').addEventListener('click', startTimer);
+document.getElementById('resetTimer').addEventListener('click', resetTimer);

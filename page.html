@@ -1,32 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Jira Replica</title>
-  <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kanban Board & Pomodoro Timer</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Link to your CSS file for styling -->
 </head>
 <body>
-  <header>
-    <h1>Jira Replica</h1>
-  </header>
-  <main>
-    <section id="issues">
-      <h2>Issues</h2>
-      <ul id="issue-list">
-        <!-- Issues will be dynamically added here -->
-      </ul>
-    </section>
-    <section id="pomodoro">
-      <h2>Pomodoro Timer</h2>
-      <div id="timer">25:00</div>
-      <button id="start-btn">Start</button>
-      <button id="reset-btn">Reset</button>
-    </section>
-  </main>
-  <footer>
-    <p>&copy; 2024 Jira Replica</p>
-  </footer>
-  <script src="script.js"></script>
+    <header>
+        <h1>Kanban Board & Pomodoro Timer</h1>
+    </header>
+    <div class="container">
+        <div class="kanban-board">
+            <!-- Kanban board columns -->
+            <div class="column">
+                <h2>To Do</h2>
+                <div class="cards" id="todo"></div>
+            </div>
+            <div class="column">
+                <h2>In Progress</h2>
+                <div class="cards" id="in-progress"></div>
+            </div>
+            <div class="column">
+                <h2>Done</h2>
+                <div class="cards" id="done"></div>
+            </div>
+        </div>
+        <div class="pomodoro-timer">
+            <h2>Pomodoro Timer</h2>
+            <div class="timer">
+                <span id="minutes">25</span>:<span id="seconds">00</span>
+            </div>
+            <button id="startTimer">Start</button>
+            <button id="resetTimer">Reset</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script> <!-- Link to your JavaScript file -->
 </body>
 </html>
